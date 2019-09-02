@@ -1,0 +1,56 @@
+body {
+    padding: 0;
+    margin: 0;
+    font-family: "Open Sans", "PingFang SC", "Hiragino Sans GB", "Microsoft Yahei", "Microsoft Jhenghei", sans-serif;
+    font-weight: 400;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    line-height: 1.5;
+    color: rgba(0, 0, 0, 0.75);
+    background: #fefefe;
+    scroll-behavior: smooth;
+    vertical-align: baseline;
+}
+header{
+    height: 65px;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.15);
+}
+footer>div{
+    border-top: 1px solid rgba(0, 0, 0, 0.15);
+    color: #aaa;
+}
+
+.site-inner{
+    line-height: 65px;
+    max-width: 1000px;
+    margin: 0 auto;
+    width: 90%;
+}
+#site-left{
+    text-align: left;
+    font-weight: 400;
+    font-size: 24px;
+    display: inline;
+}
+a {
+    text-decoration: none;
+    color: black;
+}
+#nav-top{
+    float: right;
+}
+#menu-top{
+    list-style: none;
+    padding-left: 0px;
+    margin: 0 auto;
+}
+
+#nav-top .nav-top-items .menu-item{
+    font-size: 16px;
+    margin-left: 30px;
+    display: inline-block;
+}
+.clear{
+    clear: both;
+    text-align: center;
+}

@@ -1,0 +1,32 @@
+#content{
+    margin: 0 auto;
+    width: 90%;
+    max-width: 1000px;
+    color: rgba(0, 0, 0, 0.4);
+    clear:both;
+}
+.title{
+    line-height: 1.4;
+    font-size: 1.3em;
+    font-weight: 400;
+    font-family: "Open Sans", "PingFang SC", "Hiragino Sans GB", "Microsoft Yahei", "Microsoft Jhenghei", sans-serif;
+    margin-top: 30px;
+}
+.article{
+    border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+}
+.article:nth-last-child(1){
+    border-bottom: 0px;
+}
+#left-content{
+    width: 74%;
+    float: left;
+    max-width: 850px;
+    margin: 0 auto;
+}
+#right-content{
+    width: 19%;
+    float: right;
+    padding-top: 40px;
+    color: rgba(0, 0, 0, 0.6);
+}

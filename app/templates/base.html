@@ -1,0 +1,65 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    {% block title %}
+    <title>个人博客</title>
+    {% endblock %}
+    {% block css %}
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/base.css') }}">
+    {% endblock %}
+
+</head>
+<body>
+{% block header %}
+<header>
+    <div class="site-inner">
+        <h1 id="site-left">
+            <a href="/." class="logo">个人博客</a>
+        </h1>
+        <nav id="nav-top">
+                <ul id="menu-top" class="nav-top-items">
+                        <li class="menu-item">
+                            <a href="{{url_for('web.archives')}}">
+                                    归档
+                            </a>
+                        </li>
+                        <li class="menu-item">
+                            <a href="{{url_for('web.about')}}">
+                                    关于
+                            </a>
+                        </li>
+                </ul>
+          </nav>
+      </div>
+</header>
+{% endblock %}
+
+<div class="site-inner">
+    <div id='content'>
+        {% block content%}
+        {% endblock %}
+    </div>
+</div>
+
+{% with messages = get_flashed_messages() %}
+  {% if messages %}
+    <ul class=flashes>
+    {% for message in messages %}
+      <li class="">{{ message }}</li>
+    {% endfor %}
+    </ul>
+  {% endif %}
+{% endwith %}
+
+{% block footer%}
+    <footer>
+        <div class="site-inner">
+            ©2019 - 好好学习 - 天天向上
+        </div>
+    </footer>
+{% endblock %}
+</body>
+</html>

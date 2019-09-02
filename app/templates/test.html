@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8" />
+        <title></title>
+        <!--需要引入的css文件-->
+        <link rel="stylesheet" href="static/md/css/editormd.css" />
+        <style>
+            #title{
+                text-align: center;
+                margin: 20px;
+            }
+            #title>input{
+                text-align: center;
+                font-size: 1em;
+                width: 240px;
+                height: 40px;
+                padding: 0 15px;
+            }
+        </style>
+    </head>
+    <body>
+        <div id="title">
+            <input type="text" placeholder="标题">
+        </div>
+        <div id="editormd">
+            <textarea style="display:none;">
+[TOC]
+#### Disabled options
+
+- TeX (Based on KaTeX);
+- Emoji;
+- Task lists;
+- HTML tags decode;
+- Flowchart and Sequence Diagram;
+
+#### Editor.md directory
+
+    editor.md/
+            lib/
+            css/
+            scss/
+            tests/
+            fonts/
+            images/
+            plugins/
+            examples/
+            languages/
+            editormd.js
+            ...
+
+```html
+&lt;!-- English --&gt;
+&lt;script src="../dist/js/languages/en.js"&gt;&lt;/script&gt;
+
+&lt;!-- 繁體中文 --&gt;
+&lt;script src="../dist/js/languages/zh-tw.js"&gt;&lt;/script&gt;
+```
+            </textarea>
+        </div>
+        <!--需要引入的js文件和js配置-->
+        <script src="static/js/jquery.min.js"></script>
+        <script src="static/md/js/editormd.min.js"></script>
+        <script type="text/javascript">
+			var testEditor;
+            $(function() {
+                testEditor = editormd("editormd", {
+                    width   : "80%",
+                    height  : 500,
+                    syncScrolling : "single",
+                    path    : "/static/md/lib/",
+                    toolbarIcons : function() {
+                        return ["undo", "redo", "|", "bold", "del", "italic", "quote", "uppercase",
+                        "lowercase", "|", "h1", "h2", "h3", "list-ul", "list-ol", "hr", "|", "link", "image", "code", "code-block",
+                        "table", "datetime", "html-entities",  "|", "goto-line", "watch",
+                        "preview", "fullscreen", "clear", "search", "help", "info","||", "saveIcon"]
+                    /*return ["undo", "redo", "|", "bold", "del", "italic", "quote", "ucwords", "uppercase",
+                    "lowercase", "h1", "h2", "h3", "h4", "h5", "h6", "list-ul", "list-ol", "hr", "link", "reference-link", "image", "code", "preformatted-text", "code-block",
+                    "table", "datetime", "emoji", "html-entities", "pagebreak", "goto-line", "watch",
+                    "preview", "fullscreen", "clear", "search", "help", "info"]*/
+                    },
+                    toolbarIconTexts: {
+                        saveIcon: "上传" // 如果没有图标，则可以这样直接插入内容，可以是字符串或HTML标签
+                    },
+                    toolbarHandlers: {
+                        saveIcon: function(cm, icon, cursor, selection) {
+                            send();
+                        }
+                    },
+                });
+            });
+        function send(){
+            alert(1);
+        }
+        </script>
+</body>

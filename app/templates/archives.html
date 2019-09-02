@@ -1,0 +1,18 @@
+{% extends "base.html" %}
+{% block title %}
+<title>时间轴</title>
+{% endblock %}
+{% block css %}
+{{super()}}
+<link rel="stylesheet" href="{{ url_for('static', filename='css/archives.css') }}">
+{% endblock %}
+{% block content %}
+    {% for year in articles.years %}
+        <div class='time-box'>
+            <h1>{{ year }}</h1>
+            {% for acticle in articles[year] %}
+            <a href="{{ acticle.url }}"><span>{{ acticle.created }}</span>{{ acticle.title }}</a><br>
+            {% endfor %}
+        </div>
+    {% endfor %}
+{% endblock %}
