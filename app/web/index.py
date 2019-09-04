@@ -33,7 +33,6 @@ def archives():
     articles = {}
     sql = "select id, title, create_time from article where writer_id={} order by id desc;".format(current_user.id)
     results = db.session.execute(sql).fetchall()
-
     _Article = namedtuple('Article', ['id', 'title', 'create_time'])
     for article in results:
         article = _Article._make(article)
@@ -43,10 +42,9 @@ def archives():
         article['timestamp'] = article_time.timestamp()
         if year not in articles:
             articles[year] = [article]
-        articles[year].append(article)
+        else:
+            articles[year].append(article)
     articles['years'] = sorted(articles.keys(), reverse=True)
-
     for each in articles['years']:
         articles[each].sort(key=lambda x:x['timestamp'], reverse=True)
-
     return render_template('archives.html', articles=articles)

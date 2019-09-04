@@ -11,7 +11,7 @@
         <div class='time-box'>
             <h1>{{ year }}</h1>
             {% for article in articles[year] %}
-            <a href=""><span>{{article.create_time.strftime('%Y-%m-%d')}}</span>{{ article.title }}</a><br>
+            <a href="/article/{{article.id}}"><span>{{article.create_time.strftime('%Y-%m-%d')}}</span>{{ article.title }}</a><br>
             {% endfor %}
         </div>
     {% endfor %}
