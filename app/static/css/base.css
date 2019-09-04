@@ -54,3 +54,18 @@ a {
     clear: both;
     text-align: center;
 }
+.alert {
+  color: #FB7C85;
+  font-size: 18px;
+  background-color: #E1E4E8;
+  border-radius: 0;
+  padding: 10px;
+  text-align: center;
+  border: none;
+}
+a:hover{
+    transition: 0.2s ease-out;
+    transform: translateX(4px);
+    display: inline-block;
+    color: #4D89FB;
+}

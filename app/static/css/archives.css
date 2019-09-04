@@ -3,13 +3,6 @@
     line-height: 50px;
 }
 
-a:hover{
-    transition: 0.2s ease-out;
-    transform: translateX(4px);
-    display: inline-block;
-    color: #4D89FB;
-}
-
 .time-box>a>span{
     margin: 0px 30px;
     color: #aaa;

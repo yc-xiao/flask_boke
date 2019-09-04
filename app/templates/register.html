@@ -1,0 +1,31 @@
+{% extends "base.html" %}
+
+{% block title %}
+<title>用户注册</title>
+<style>
+    input{
+        text-align: center;
+        font-size: 1em;
+        width: 240px;
+        height: 40px;
+        padding: 0 15px;
+    }
+    form {
+        text-align:center;
+    }
+    input[type='submit']{
+        width: 120px;
+    }
+</style>
+{% endblock %}
+
+{% block content %}
+<form class="" action="{{url_for('web.register')}}" method="post">
+    <input type="text" name="alias" value="{{form.alias}}" placeholder="名称"><br>
+    <input type="text" name="account" value="{{form.account}}" placeholder="账号"><br>
+    <input type="text" name="email" value="{{form.email}}" placeholder="电子邮箱"><br>
+    <input type="password" name="password1" value="{{form.password1}}" placeholder="密码"><br>
+    <input type="password" name="password2" value="{{form.password2}}" placeholder="确认密码"><br>
+    <input type="submit" name="" id="" value="注册">
+</form>
+{% endblock %}

@@ -1,3 +1,4 @@
 log*
 private_code*
 migrations*
+*__pycache__

@@ -21,11 +21,40 @@
         </h1>
         <nav id="nav-top">
                 <ul id="menu-top" class="nav-top-items">
+                        {% if current_user.is_authenticated %}
+                        <li class="menu-item">
+                            <a href="{{url_for('web.admin')}}">
+                                    {{ current_user.alias }}
+                            </a>
+                        </li>
                         <li class="menu-item">
                             <a href="{{url_for('web.archives')}}">
                                     归档
                             </a>
                         </li>
+                        <li class="menu-item">
+                            <a href="{{url_for('web.article_write')}}">
+                                    记录
+                            </a>
+                        </li>
+
+                        <li class="menu-item">
+                            <a href="{{url_for('web.logout')}}">
+                                    退出
+                            </a>
+                        </li>
+                        {% else %}
+                        <li class="menu-item">
+                            <a href="{{url_for('web.login')}}">
+                                    登陆
+                            </a>
+                        </li>
+                        <li class="menu-item">
+                            <a href="{{url_for('web.register')}}">
+                                    注册
+                            </a>
+                        </li>
+                        {% endif %}
                         <li class="menu-item">
                             <a href="{{url_for('web.about')}}">
                                     关于
@@ -43,7 +72,24 @@
         {% endblock %}
     </div>
 </div>
+<div class='container'>
+    <div class="row">
+        {% with messages = get_flashed_messages() %}
+            {% for message in messages %}
+                {% if message %}
+                    <div class="alert alert-warning" role="alert">{{ message }}</div>
+                {% endif %}
+            {% endfor %}
+        {% endwith %}
+        {% if form and form.errors %}
+            {% for key, error in form.errors.items() %}
+                <div class="alert alert-warning" role="alert">{{ error }}</div>
+            {% endfor %}
+        {% endif %}
+    </div>
+</div>
 
+{#
 {% with messages = get_flashed_messages() %}
   {% if messages %}
     <ul class=flashes>
@@ -53,6 +99,7 @@
     </ul>
   {% endif %}
 {% endwith %}
+#}
 
 {% block footer%}
     <footer>
@@ -62,4 +109,6 @@
     </footer>
 {% endblock %}
 </body>
+{% block script %}
+{% endblock %}
 </html>

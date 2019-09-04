@@ -10,8 +10,8 @@
     {% for year in articles.years %}
         <div class='time-box'>
             <h1>{{ year }}</h1>
-            {% for acticle in articles[year] %}
-            <a href="{{ acticle.url }}"><span>{{ acticle.created }}</span>{{ acticle.title }}</a><br>
+            {% for article in articles[year] %}
+            <a href=""><span>{{article.create_time.strftime('%Y-%m-%d')}}</span>{{ article.title }}</a><br>
             {% endfor %}
         </div>
     {% endfor %}

@@ -20,16 +20,24 @@
         </style>
     </head>
     <body>
+        {% with messages = get_flashed_messages() %}
+          {% if messages %}
+          <div>
+            <ul class="">
+            {% for message in messages %}
+              <li class="">{{ message }}</li>
+            {% endfor %}
+            </ul>
+          </div>
+          {% endif %}
+        {% endwith %}
         <div id="title">
-            {% if article %}
-            <input type="text" placeholder="标题" value="{{ article.title}}">
-            {% else %}
-            <input type="text" placeholder="标题" value="">
-            {% endif %}
+            <input type="text" hidden value="{{article_status.status}}" id="status">
+            <input type="text" hidden value="{{article.id}}" id="article-id">
+            <input id="article-title" type="text" placeholder="标题" value="{{ article.title}}">
         </div>
         <div id="editormd">
-            <textarea style="display:none;">{% if article %}{{ article.content}}{% endif %}
-            </textarea>
+            <textarea style="display:none;" id="markdown-doc">{{article.content}}</textarea>
         </div>
         <!--需要引入的js文件和js配置-->
         <script src="static/js/jquery.min.js"></script>
@@ -63,7 +71,30 @@
                 });
             });
         function send(){
-            alert(1);
+            var title = $('#article-title').val().trim();
+            var content = $('#markdown-doc').val().trim();
+            var article_status = $('#status').val()
+            var article_id = $('#article-id').val()
+            var send_type = 'POST';
+            var url = '/article'
+            if(article_status=='200'){
+                send_type = 'PUT';
+                url = url + '/' + article_id;
+            }
+            $.ajax({
+                url: url,
+                type: send_type,
+                dataType: 'text',
+                data: {'title': title, 'content':content}
+            })
+            .done(function(data) {
+                console.log("success");
+                document.location.href = data;
+            })
+            .fail(function(error) {
+                console.log("error");
+                console.log(error.responseText);
+            });
         }
         </script>
 </body>

@@ -1,0 +1,33 @@
+{% extends "base.html" %}
+
+{% block title %}
+<title>个人博客</title>
+{% endblock %}
+
+{% block css %}
+{{super()}}
+<link rel="stylesheet" href="{{ url_for('static', filename='css/index.css') }}">
+{% endblock %}
+
+{% block content %}
+    <div id='left-content'>
+        {% for article in articles %}
+        <div class='article'>
+            <h1 class='title'><a href="/article/{{article.id}}">{{article.title}}</a></h1>
+            <span>作者：{{article.writer_alias}}</span>
+            <span class='article-time'>{{article.create_time.strftime('%Y-%m-%d')}}</span>
+        </div>
+        {% endfor %}
+    </div>
+    <div id='right-content'>
+    </div>
+    <div class='clear'>
+        {% if pages and pages.previous %}
+            <a href="/admin?page={{pages.previous}}">上一页</a>
+        {% endif %}
+            &nbsp&nbsp&nbsp&nbsp
+        {% if pages and pages.next %}
+            <a href="/admin?page={{pages.next}}">下一页</a>
+        {% endif %}
+    </div>
+{% endblock %}

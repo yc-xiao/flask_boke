@@ -13,20 +13,21 @@
     <div id='left-content'>
         {% for article in articles %}
         <div class='article'>
-            <h1 class='title'><a href="{{article.url}}">{{article.title}}</a></h1>
-            <span>{{article.created}}</span>
+            <h1 class='title'><a href="/article/{{article.id}}">{{article.title}}</a></h1>
+            <span>作者：{{article.writer_alias}}</span>
+            <span class='article-time'>{{article.create_time.strftime('%Y-%m-%d')}}</span>
         </div>
         {% endfor %}
     </div>
     <div id='right-content'>
     </div>
     <div class='clear'>
-        {% if pages.previous %}
-            <a href="{{pages.previous}}">上一页</a>
+        {% if pages and pages.previous %}
+            <a href="/?page={{pages.previous}}">上一页</a>
         {% endif %}
             &nbsp&nbsp&nbsp&nbsp
-        {% if pages.next %}
-            <a href="{{pages.next}}">下一页</a>
+        {% if pages and pages.next %}
+            <a href="/?page={{pages.next}}">下一页</a>
         {% endif %}
     </div>
 {% endblock %}

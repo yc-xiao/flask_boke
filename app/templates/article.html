@@ -1,0 +1,96 @@
+{% extends "base.html" %}
+
+{% block css %}
+{{super()}}
+<style>
+.toc{
+    position: fixed;
+    top: 150px;
+    right: 200px;
+}
+.left-content{
+    width: 74%;
+    float: left;
+    max-width: 850px;
+    margin: 0 auto;
+}
+.update{
+    float: right;
+}
+.delete{
+    float: right;
+    margin-right: 20px;
+}
+</style>
+{% endblock %}
+
+{% block content %}
+{% if article %}
+    <div class="left-content">
+        <input type="text" id="article-id" hidden value='{{article.id}}'>
+        <h1>{{article.title}}</h1>
+        <div id="editormd" style="display:none" >
+            <textarea>{{article.content}}</textarea>
+        </div>
+        <span>作者：{{article.writer_alias}}</span>&nbsp&nbsp&nbsp&nbsp
+        &nbsp&nbsp&nbsp&nbsp
+        <span>更新时间：{{article.update_time.strftime('%Y-%m-%d')}}</span>
+        {% if current_user.is_authenticated and current_user.id == article.writer_id %}
+            <a href="{{url_for('web.article_write')}}?id={{article.id}}" class="update">更新</a>
+            <span id="delete" class="delete">删除</span>
+        {% endif %}
+    </div>
+
+
+    <div class='clear'></div>
+{% endif %}
+{% endblock %}
+{% block script %}
+
+<link rel="stylesheet" href="/static/md/css/editormd.css" />
+<script src="/static/js/jquery.min.js"></script>
+<script src="/static/md/js/editormd.min.js"></script>
+<script src="/static/md/lib/marked.min.js"></script>
+<script src="/static/md/lib/prettify.min.js"></script>
+<script src="/static/md/lib/raphael.min.js"></script>
+<script src="/static/md/lib/underscore.min.js"></script>
+<script src="/static/md/lib/sequence-diagram.min.js"></script>
+<script src="/static/md/lib/flowchart.min.js"></script>
+<script src="/static/md/lib/jquery.flowchart.min.js"></script>
+
+<script type="text/javascript">
+    var testEditor = editormd.markdownToHTML("editormd", {
+          htmlDecode      : "style,script,iframe",
+          emoji           : true,
+          taskList        : true,
+          tex             : true,  // 默认不解析
+          flowChart       : true,  // 默认不解析
+          sequenceDiagram : true,  // 默认不解析
+    });
+    var editormd = document.getElementById('editormd');
+    editormd.style.display='block';
+    var toc = document.getElementsByClassName('markdown-toc editormd-markdown-toc');
+
+    if(toc.length){
+        toc[0].classList.add('toc');
+    }
+    $('#delete').click(function(){
+        var article_id = $('#article-id').val()
+        $.ajax({
+            url: '/article/' + article_id,
+            type: 'delete',
+            dataType: 'text',
+            data: {}
+        })
+        .done(function(data) {
+            console.log("success");
+            document.location.href = data;
+        })
+        .fail(function(error) {
+            console.log("error");
+            console.log(error.responseText);
+        });
+
+    })
+</script>
+{% endblock %}

@@ -15,7 +15,7 @@ if __name__ == '__main__':
     manager.run()
 
 '''
-manage.py db init    //创建迁移存储库
-python37 manage.py db migrate    //模型改变后先执行迁移
-python37 manage.py db upgrade    //将迁移应用于数据库
+manager.py db init    //创建迁移存储库
+python37 manager.py db migrate    //模型改变后先执行迁移
+python37 manager.py db upgrade    //将迁移应用于数据库
 '''
