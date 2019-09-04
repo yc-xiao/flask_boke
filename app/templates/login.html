@@ -1,0 +1,32 @@
+{% extends "base.html" %}
+
+
+{% block title %}
+<title>用户注册</title>
+<style>
+    input{
+        text-align: center;
+        font-size: 1em;
+        width: 240px;
+        height: 40px;
+        padding: 0 15px;
+    }
+    form {
+        text-align:center;
+    }
+    .btn{
+        width: 120px;
+        padding: 0;
+        margin: 10px;
+    }
+</style>
+{% endblock %}
+
+{% block content %}
+<form action="{{url_for('web.login')}}" method="post" >
+    <input type="text" name="account" value="" placeholder="账号"><br>
+    <input type="password" name="password" value="" placeholder="密码"><br>
+    <input type="submit" class="btn" id="" value="登陆">
+    <a href="{{url_for('web.forget_password')}}" class="btn">找回密码!</a>
+</form>
+{% endblock %}
