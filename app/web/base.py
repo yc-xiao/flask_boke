@@ -9,7 +9,7 @@ class _Blueprint(Blueprint):
         """
         def decorator(f):
             endpoint = options.pop("endpoint", f.__name__)
-            f = ttry(1)(f)
+            # f = ttry(1)(f)
             self.add_url_rule(rule, endpoint, f, **options)
             return f
         return decorator
