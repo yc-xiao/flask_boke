@@ -1,6 +1,9 @@
 {% extends "base.html" %}
 {% block content %}
-    <form action="{{ url_for('web.upload')}}" method="post" enctype="multipart/form-data">
+    {% for file in files %}
+        <a href="{{file.url}}" target="_blank">{{file.name}}</a><br>
+    {% endfor %}
+    <form action="{{ upload_url }}" method="post" enctype="multipart/form-data">
         <input type="file" name="files" />
         <input type="submit" value="上传文件" />
     </form>
