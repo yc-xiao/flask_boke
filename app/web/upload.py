@@ -1,10 +1,10 @@
 from flask import render_template, request, url_for, redirect
 from flask_login import current_user, login_required
 from werkzeug import secure_filename
+import os
+
 from app.secure import FILE_URL, UPLOAD_PATH, IP_HOST
 from .base import web
-import os
-from http import server
 
 
 @web.route('/upload/', methods=['GET','POST'])

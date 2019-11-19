@@ -1,4 +1,5 @@
 from app.libs.helpers import ttry
+from app.libs.helpers import log_info
 from flask import Blueprint
 
 class _Blueprint(Blueprint):
@@ -10,6 +11,7 @@ class _Blueprint(Blueprint):
         def decorator(f):
             endpoint = options.pop("endpoint", f.__name__)
             # f = ttry(1)(f)
+            f = log_info()(f) # 添加日志记录
             self.add_url_rule(rule, endpoint, f, **options)
             return f
         return decorator
