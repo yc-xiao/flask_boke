@@ -1,7 +1,7 @@
 from flask import render_template, request, url_for, redirect
 from flask_login import current_user, login_required
 from werkzeug import secure_filename
-from app.secure import FILE_URL, UPLOAD_PATH
+from app.secure import FILE_URL, UPLOAD_PATH, IP_HOST
 from .base import web
 import os
 from http import server
@@ -10,6 +10,7 @@ from http import server
 @web.route('/upload/', methods=['GET','POST'])
 def upload():
     url = request.url
+    url.replace('127.0.0.1:5000', IP_HOST)
     if request.method == 'GET':
         files = os.listdir(UPLOAD_PATH)
         temp_f_files, temp_d_files = [], []
@@ -24,7 +25,8 @@ def upload():
     if request.method == 'POST':
         file = request.files['files']
         if file:
-            filename = secure_filename(file.filename)
+            # filename = secure_filename(file.filename)
+            filename = file.filename
             file.save(os.path.join(UPLOAD_PATH, filename))
             return redirect(url_for('web.upload'))
         return redirect(url_for('web.upload'))
@@ -32,6 +34,7 @@ def upload():
 @web.route('/upload/<path:file_path>', methods=['GET','POST'])
 def upload2(file_path=None):
     url = request.url
+    url.replace('127.0.0.1:5000', IP_HOST)
     if request.method == 'GET':
         upload_path = UPLOAD_PATH + file_path
         files = os.listdir(upload_path)
@@ -48,7 +51,8 @@ def upload2(file_path=None):
     if request.method == 'POST':
         file = request.files['files']
         if file:
-            filename = secure_filename(file.filename)
+            # filename = secure_filename(file.filename)
+            filename = file.filename
             file.save(os.path.join(f'{UPLOAD_PATH}/{file_path}', filename))
             return redirect(url)
         return redirect(url_for('web.upload'))
