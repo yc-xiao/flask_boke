@@ -1,7 +1,7 @@
 from celery import Celery
 
-app = Celery('flask_celery')
-app.config_from_object('setting')
+appc = Celery('flask_celery')
+appc.config_from_object('celerys.setting')
 
 if __name__ == '__main__':
-    app.start()
+    appc.start()

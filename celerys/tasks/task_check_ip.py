@@ -3,7 +3,7 @@ from pprint import pprint
 import time
 import os
 
-from main import app
+from celerys.main import appc
 
 PATH = r'/etc/nginx/black.ips'
 error_ips = set()
@@ -67,7 +67,7 @@ def handler(datas):
         for ip in error_ips:
             f.write(f'deny {ip};\n')
 
-@app.task
+@appc.task
 def check():
     now = time.strftime("%Y-%m-%d", time.localtime())
     path = f'/home/share/nginx/log/flask/{now}_access.log'

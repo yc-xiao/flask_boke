@@ -1,9 +1,9 @@
 from email.message import EmailMessage
 import smtplib
 
-from main import app
+from celerys.main import appc
 
-@app.task
+@appc.task
 def send_email(subject='pytest', to_addr=None, content=None):
     if not to_addr:
         return

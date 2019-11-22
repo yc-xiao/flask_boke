@@ -1,5 +1,5 @@
-from main import app
+from celerys.main import appc
 
-@app.task
+@appc.task
 def add(x,y):
     return x+y
