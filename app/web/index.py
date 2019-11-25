@@ -1,11 +1,22 @@
 from flask import render_template, request, url_for
 from flask_login import current_user, login_required
+from flasgger.utils import swag_from
 from collections import namedtuple
 
 from app.models.base import db
 from app.models.article import Article
 from .base import web
 
+# @web.route('/test1')
+# @swag_from('api_doc.test1.yml')
+# def test1():
+#     return render_template('test.html')
+
+@web.route('/helloc')
+def helloc():
+    num1 = request.args.get('num1')
+    num2 = request.args.get('num2')
+    return num1 + num2
 
 @web.route('/test')
 def test():

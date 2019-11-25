@@ -1,5 +1,6 @@
-from flask import Flask
 from flask_login import LoginManager
+from flasgger import Swagger
+from flask import Flask
 
 loginmanager = LoginManager()
 
@@ -12,7 +13,20 @@ def create_app():
     register_blueprints(app)
     register_db(app)
     register_login(app)
+    register_doc(app)
+    Swagger(app)
     return app
+
+def register_doc(app):
+    import api_doc
+    for key, func in app.view_functions.items():
+        if 'static' == key:
+            continue
+        nkey = key.replace('.', '_')
+        if not hasattr(api_doc, nkey):
+            func.__doc__ = api_doc.default
+            continue
+        func.__doc__ = getattr(api_doc, nkey)
 
 def register_blueprints(app):
     from app.web.base import web
