@@ -2,6 +2,7 @@ from celerys.tasks.task_send_email import send_email
 from app.libs.logging_helper import app_logger
 from functools import wraps
 from flask import request
+import traceback
 import pdb
 
 def ttry(step=1):
@@ -40,10 +41,11 @@ def send_error_email(step=1):
             try:
                 results = func(*args, **kw)
             except Exception as e:
+                error_infos = traceback.format_exception(etype=type(e), value=e, tb=e.__traceback__)
                 data = {
                     'subject': '告诉你一个好消息,你的服务器好像挂了!',
                     'to_addr': '395015856@qq.com',
-                    'content': e.args[0]
+                    'content': '\n'.join(error_infos)
                 }
                 send_email.delay(**data)
                 raise e

@@ -1,3 +1,7 @@
 private_code*
 migrations*
 *.pyc
+*.log
+*.bak
+*.dat
+*.dir
