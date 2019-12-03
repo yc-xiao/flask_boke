@@ -17,7 +17,7 @@ def create_app():
     register_login(app)
     register_doc(app)
     Swagger(app)
-    Sentry_init(app)
+    # Sentry_init(app)
     return app
 
 def Sentry_init(app):
