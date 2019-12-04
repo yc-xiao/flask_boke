@@ -26,6 +26,7 @@ Mako==1.1.0
 MarkupSafe==1.1.1
 mistune==0.8.4
 more-itertools==7.2.0
+psutil==5.6.7
 PyMySQL==0.9.3
 python-dateutil==2.8.0
 python-editor==1.0.4
