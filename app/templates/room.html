@@ -68,12 +68,14 @@
                 socket.on('room_reponse', function(res) {
                     func(res)
                 });
-
                 $('#btn').click(function(){
                     var message = $('#input').val().trim();
-                    console.log(message);
-                    // message = decodeURI(data.message)
-                    socket.emit('room', encodeURI(message));
+                    if(message){
+                        console.log(message);
+                        // message = decodeURI(data.message)
+                        socket.emit('room', encodeURI(message));
+                        $('#input')[0].value = '';
+                    }
                 });
             });
         </script>
