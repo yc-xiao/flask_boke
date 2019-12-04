@@ -1,1 +1,1 @@
-from app.websockets.test import *
+from app.websockets.simples import *

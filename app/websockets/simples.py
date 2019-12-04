@@ -37,4 +37,5 @@ def background(message):
         count += 1
         t = time.strftime('%M:%S', time.localtime())
         cpus = psutil.cpu_percent(interval=None, percpu=True)
-        socketio.emit('server_response', {'data': [t, cpus], 'count': count})
+        emit('server_response', {'data': [t, cpus], 'count': count})
+        # socketio.emit('server_response', {'data': [t, cpus], 'count': count})
