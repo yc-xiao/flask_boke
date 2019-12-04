@@ -52,7 +52,9 @@
                     $('#body>ul')[0].innerHTML = ''
                     for(var i=0;i<queue.length;i++){
                         var data = queue[i];
-                        innerdata = "<li><span class='username'>"+data.username+":</span><span class=''>"+data.message+"</span></li>"
+                        username = data.username
+                        message = data.message
+                        innerdata = "<li><span class='username'>"+username+":</span><span class=''>"+message+"</span></li>"
                         $('#body>ul')[0].innerHTML += innerdata
                         console.log(data.username);
                         console.log(data.message);
@@ -69,7 +71,9 @@
 
                 $('#btn').click(function(){
                     var message = $('#input').val().trim();
-                    socket.emit('room', message);
+                    console.log(message);
+                    // message = decodeURI(data.message)
+                    socket.emit('room', encodeURI(message));
                 });
             });
         </script>

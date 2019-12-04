@@ -2,6 +2,7 @@ from flask import request, render_template, flash, redirect, url_for
 from flask_login import login_required, current_user
 from flask_socketio import ConnectionRefusedError
 from flask_socketio import send, emit
+from urllib import parse
 import psutil
 import random
 import time
@@ -19,6 +20,7 @@ def room(message):
         socketio.emit('room_reponse',
             {'message_queue': [], 'status':403, 'message': '要登录的!'}
         )
+    message = parse.unquote(message)
     message_queue.append({'username': current_user.alias, 'message':message})
     queue = message_queue
     if len(message_queue) > 20:
