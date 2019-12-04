@@ -14,9 +14,19 @@
     <script type="text/javascript" src="//cdn.bootcss.com/socket.io/2.2.0/socket.io.js"></script>
     <script type="text/javascript">
         $(document).ready(function() {
+            var count = 0;
             var socket = io();
-            socket.on('connect', function() {
-                socket.emit('my event', {data: 'I\'m connected!'});
+            socket.on('connect', function(res) {
+                if(count%2==0){
+                    socket.emit('my event','content');
+                }
+                else{
+                    console.log(res)
+                    var t = res.data;
+                    console.log(t)
+                    $("#xxxt").text(t);
+                }
+                count += 1;
             });
         });
     </script>

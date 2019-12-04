@@ -5,6 +5,10 @@ from .base import web
 def websocket():
     return render_template('websocket.html')
 
-@web.route('/websocket/1')
-def websocket1():
-    return render_template('websock_test.html')
+@web.route('/room/')
+def room():
+    return render_template('room.html')
+
+@web.route('/system/')
+def system():
+    return render_template('system.html')

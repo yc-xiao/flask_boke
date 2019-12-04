@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>聊天啦</title>
+    <script type="text/javascript" src="//cdn.bootcss.com/jquery/3.1.1/jquery.min.js"></script>
+    <script type="text/javascript" src="//cdn.bootcss.com/socket.io/1.5.1/socket.io.min.js"></script>
+    <style media="screen">
+        div{
+            margin: auto;
+        }
+        #main{
+            width: 50%;
+            height: 800px;
+        }
+        #body{
+            width: 90%;
+            height: 80%;
+        }
+        #send{
+            width: 90%;
+            height: 10%;
+        }
+        #input{
+            width: 750px;
+            height: 25px;
+        }
+    </style>
+</head>
+    <body>
+        <div id="main">
+            <div id="body">
+                <ul style="list-style-type:none">
+                  <li>
+                      <span class='username'>小米:</span>
+                      <span class=''>Coffee</span>
+                  </li>
+                </ul>
+            </div>
+            <div id="send">
+                <input type="text" name="input" id="input">
+                <button type="button" id="btn">发送</button>
+            </div>
+        </div>
+        <script type="text/javascript">
+            function func(res){
+                if(res.status == 403){
+                    location.href = '/login?next=room'
+                }
+                else{
+                    queue = res.message_queue
+                    $('#body>ul')[0].innerHTML = ''
+                    for(var i=0;i<queue.length;i++){
+                        var data = queue[i];
+                        innerdata = "<li><span class='username'>"+data.username+":</span><span class=''>"+data.message+"</span></li>"
+                        $('#body>ul')[0].innerHTML += innerdata
+                        console.log(data.username);
+                        console.log(data.message);
+                    }
+
+                }
+            };
+            $(document).ready(function() {
+                var socket = io()
+                socket.emit('room','helloc');
+                socket.on('room_reponse', function(res) {
+                    func(res)
+                });
+
+                $('#btn').click(function(){
+                    var message = $('#input').val().trim();
+                    socket.emit('room', message);
+                });
+            });
+        </script>
+    </body>
+</html>
