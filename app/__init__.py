@@ -1,8 +1,6 @@
-from sentry_sdk.integrations.flask import FlaskIntegration
 from flask_login import LoginManager
 from flasgger import Swagger
 from flask import Flask
-import sentry_sdk
 
 loginmanager = LoginManager()
 
@@ -21,6 +19,8 @@ def create_app():
     return app
 
 def Sentry_init(app):
+    from sentry_sdk.integrations.flask import FlaskIntegration
+    import sentry_sdk
     sentry_sdk.init(
         dsn="https://efd64fd78d774c4da961cb8cd04e696b@sentry.io/1837049",
         integrations=[FlaskIntegration()]

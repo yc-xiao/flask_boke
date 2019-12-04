@@ -68,6 +68,15 @@
                 socket.on('room_reponse', function(res) {
                     func(res)
                 });
+                
+                $('body').bind('keypress', function(event) {
+                    if (event.keyCode == "13") {
+                        event.preventDefault();
+                        //回车执行查询
+                        $('#btn').click();
+                    }
+                });
+
                 $('#btn').click(function(){
                     var message = $('#input').val().trim();
                     if(message){
