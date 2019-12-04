@@ -3,6 +3,8 @@ from app.libs.logging_helper import app_logger
 from functools import wraps
 from flask import request
 import traceback
+import pymongo
+import time
 import pdb
 
 def ttry(step=1):
@@ -23,12 +25,25 @@ def ttry(step=1):
         return inner
     return wrapper
 
+def add_log(data):
+    client = pymongo.MongoClient()
+    db = client.logs
+    db.log.insert(data)
+
 def log_info(step=1):
     def wrapper(func):
         @wraps(func)
         def inner(*args, **kw):
-            app_logger.info(f'''请求url:{request.url}\t请求方式:{request.method}\tip: {request.remote_addr}\tuser_agent:{request.user_agent}''')
-            # [print({i: getattr(request, i)}) for i in dir(request)]
+            remote_ip = request.environ.get('HTTP_X_REAL_IP') or '127.0.0.1'
+            data = {
+                'url': request.url,
+                'method': request.method,
+                'remote_ip': remote_ip,
+                'user_agent': str(request.user_agent),
+                'time': time.strftime('%Y-%m-%d %H:%S:%M',time.localtime(time.time())),
+            }
+            app_logger.info('''请求url:{url}\t请求方式:{method}\tremote_ip: {remote_ip}\tuser_agent:{user_agent}'''.format(**data))
+            add_log(data)
             results = func(*args, **kw)
             return results
         return inner
