@@ -7,3 +7,6 @@ UPLOAD_PATH = r'/home/youcan/'
 MAX_CONTENT_LENGTH = 2 * 1024 * 1024 * 1024  # 2GB
 IP_HOST = 'localhost:5000'
 LOG_FILE = './app/boke.log'
+
+EMAIL_ACCOUNT = ''
+EMAIL_PASSWORD = ''

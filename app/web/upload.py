@@ -10,7 +10,8 @@ from .base import web
 @web.route('/upload/', methods=['GET','POST'])
 def upload():
     url = request.url
-    url = url.replace('localhost:5000', IP_HOST)
+    url = url.replace('http://localhost:5000', IP_HOST)
+    # url = url.replace('localhost:5000', IP_HOST)
     if request.method == 'GET':
         files = os.listdir(UPLOAD_PATH)
         temp_files = []
@@ -35,7 +36,8 @@ def upload():
 @web.route('/upload/<path:file_path>', methods=['GET','POST'])
 def upload2(file_path=None):
     url = request.url
-    url = url.replace('localhost:5000', IP_HOST)
+    url = url.replace('http://localhost:5000', IP_HOST)
+    # url = url.replace('localhost:5000', IP_HOST)
     if request.method == 'GET':
         upload_path = UPLOAD_PATH + file_path
         files = os.listdir(upload_path)

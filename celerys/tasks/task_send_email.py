@@ -2,14 +2,15 @@ from email.message import EmailMessage
 import smtplib
 
 from celerys.main import appc
+from app.secure import EMAIL_ACCOUNT, EMAIL_PASSWORD
 
 @appc.task
 def send_email(subject='pytest', to_addr=None, content=None):
     if not to_addr:
         return
     smtp_server = 'smtp.qq.com'    # 定义SMTP服务器地址:
-    from_addr = None # 定义发件人地址
-    password = None  # 定义登录邮箱的密码
+    from_addr = EMAIL_ACCOUNT # 定义发件人地址
+    password = EMAIL_PASSWORD  # 定义登录邮箱的密码
     to_addr = to_addr   # 定义收件人地址:
     conn = smtplib.SMTP_SSL(smtp_server, 465)  # 创建SMTP连接
     conn.login(from_addr, password)
