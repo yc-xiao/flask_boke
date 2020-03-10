@@ -1,6 +1,7 @@
-from flask import render_template, request, url_for, redirect
+from flask import render_template, request, url_for, redirect, jsonify, make_response
 from flask_login import current_user, login_required
 from werkzeug import secure_filename
+import xlrd, csv
 import os
 
 from app.secure import FILE_URL, UPLOAD_PATH, IP_HOST
@@ -60,3 +61,22 @@ def upload2(file_path=None):
             file.save(os.path.join(f'{UPLOAD_PATH}/{file_path}', filename))
             return redirect(url)
         return redirect(url_for('web.upload'))
+
+
+@web.route('/uploads/<file_type>/', methods=['POST'])
+def upload_file(file_type=None):
+    results = {'test': True, 'datas':[]}
+    print(results, file_type)
+    file_obj = request.files['files']
+    if file_type == 'execl':
+        wb = xlrd.open_workbook(file_contents=file_obj.read())
+        table = wb.sheet_by_name('Sheet1')
+        nrows, ncols = table.nrows, table.ncols
+        for i in range(nrows):
+            data = table.row_values(i)
+            results['datas'].append(data)
+    if file_type == 'csv':
+        datas = file_obj.read().decode('utf-8')
+        datas = datas.split('\r\n')
+        results['datas'] = datas
+    return make_response(jsonify(results), 200)
