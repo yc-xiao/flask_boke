@@ -35,10 +35,12 @@ def log_info(step=1):
         @wraps(func)
         def inner(*args, **kw):
             remote_ip = request.environ.get('HTTP_X_REAL_IP') or '127.0.0.1'
+            referer = request.environ.get('HTTP_X_REFERER')
             data = {
                 'url': request.url,
                 'method': request.method,
                 'remote_ip': remote_ip,
+                'referer': referer,
                 'user_agent': str(request.user_agent),
                 'time': time.strftime('%Y-%m-%d %H:%S:%M',time.localtime(time.time())),
             }
