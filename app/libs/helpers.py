@@ -42,7 +42,7 @@ def log_info(step=1):
                 'remote_ip': remote_ip,
                 'referer': referer,
                 'user_agent': str(request.user_agent),
-                'time': time.strftime('%Y-%m-%d %H:%S:%M',time.localtime(time.time())),
+                'time': time.strftime('%Y-%m-%d %H:%M:%S',time.localtime(time.time())),
             }
             app_logger.info('''请求url:{url}\t请求方式:{method}\tremote_ip: {remote_ip}\tuser_agent:{user_agent}'''.format(**data))
             add_log(data)
