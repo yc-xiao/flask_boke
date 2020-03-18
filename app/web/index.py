@@ -22,6 +22,10 @@ def helloc():
 def test():
     return render_template('test.html')
 
+@web.route('/test_code')
+def test_code():
+    return render_template('code.html')
+
 @web.route('/')
 def index():
     size = 5
