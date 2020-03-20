@@ -6,3 +6,4 @@ from app.web import index
 from app.web import admin
 from app.web import auth
 from app.web import test
+from app.web import test_thread

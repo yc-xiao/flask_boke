@@ -8,7 +8,7 @@ app = create_app()
 #     print(request.remote_addr, request.user_agent, request.url)
 
 if __name__ == '__main__':
-    # app.run()
+    # app.run(threaded=False) # 单线程
     from app.websockets.base import socketio
     socketio.init_app(app)
     socketio.run(app)
