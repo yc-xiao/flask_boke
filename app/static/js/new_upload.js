@@ -1,3 +1,4 @@
+var _url = 'http://localhost:5000'
 //上传文件方法
 function UpladFile() {
     var fileObj = document.getElementById("file").files[0]; // js 获取文件对象
@@ -5,7 +6,7 @@ function UpladFile() {
 }
 
 function search(fileObj){
-    var url =  "http://localhost:5000/new_upload/?"; // 接收上传文件的后台地址
+    var url =  _url + "/new_upload/?"; // 接收上传文件的后台地址
     url = url + 'file_name' + '='+ fileObj.name + '&';
     url = url + 'file_size' + '='+ fileObj.size + '&';
     url = url + 'last_time' + '='+ fileObj.lastModified;
@@ -37,7 +38,7 @@ function handler_search(data){
     for(var each in blocks){
         if(!blocks[each]['status']){
             var datas = get_datas(each, blocks[each]['start'], blocks[each]['end']);
-            url = "http://localhost:5000/new_upload/";
+            url = _url+ "/new_upload/";
             var xhr = new XMLHttpRequest();  // XMLHttpRequest 对象
             xhr.open('post', url, true); //post方式，url为服务器请求地址，true 该参数规定请求是否异步处理。
             xhr.onload = function(evt){

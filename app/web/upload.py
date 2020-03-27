@@ -5,7 +5,7 @@ import xlrd, csv
 import json
 import os
 
-from app.secure import FILE_URL, UPLOAD_PATH, IP_HOST
+from app.secure import FILE_URL, UPLOAD_PATH, IP_HOST, UPLOAD2_PATH
 from .base import web
 
 
@@ -98,7 +98,7 @@ def new_upload():
     split_count = 10
     # 新的上传，可断点重传
     res = request
-    root_path = UPLOAD_PATH
+    root_path = UPLOAD2_PATH
     if request.method == 'GET':
         # import pdb;pdb.set_trace()
         file_full_name = request.args['file_name']
