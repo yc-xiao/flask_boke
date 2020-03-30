@@ -8,6 +8,8 @@ import os
 from app.secure import FILE_URL, UPLOAD_PATH, IP_HOST, UPLOAD2_PATH
 from .base import web
 
+import threading
+lock = threading.RLock()
 
 @web.route('/upload/', methods=['GET','POST'])
 def upload():
@@ -147,8 +149,9 @@ def new_upload():
         if not os.path.exists(file_json_path):
             return make_response('file_json_error', 400)
 
-        with open(file_json_path, 'r') as f:
-            file_json = json.loads(f.read())
+        # with open(file_json_path, 'r') as f:
+        #     file_json = json.loads(f.read())
+        file_json = read_lock(file_json_path)
 
         if file_json['last_time'] != last_time:
             return make_response('last_time_error', 400)
@@ -157,13 +160,15 @@ def new_upload():
         file = request.files['files']
         if file:
             file.save(os.path.join(f'{file_dir}', split_file_name))
-            file_json['blocks'][split_file_name]['status'] = True
-            with open(file_json_path, 'w') as f:
-                f.write(json.dumps(file_json))
+            with lock:
+                file_json = read_lock(file_json_path)
+                file_json['blocks'][split_file_name]['status'] = True
+                write_lock(file_json_path, file_json)
 
         # 检查文件是否全部更新,检查更新读取最新文件
-        with open(file_json_path, 'r') as f:
-            file_json = json.loads(f.read())
+        # with open(file_json_path, 'r') as f:
+        #     file_json = json.loads(f.read())
+        # file_json = read_lock(file_json_path)
 
         for value in file_json['blocks'].values():
             if value['status'] == False:
@@ -185,3 +190,15 @@ def new_upload():
         with open(file_json_path, 'w') as f:
             f.write(json.dumps(file_json))
         return make_response(jsonify(file_json), 200)
+
+
+def write_lock(path, data):
+    with lock:
+        with open(path, 'w') as f:
+            f.write(json.dumps(data))
+
+def read_lock(path):
+    with lock:
+        with open(path, 'r') as f:
+            file_json = json.loads(f.read())
+    return file_json
