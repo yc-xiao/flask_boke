@@ -10,6 +10,8 @@ from .base import web
 
 import threading
 lock = threading.RLock()
+import multiprocessing
+lock = multiprocessing.RLock()
 
 @web.route('/upload/', methods=['GET','POST'])
 def upload():
