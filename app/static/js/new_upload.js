@@ -37,7 +37,7 @@ function search(fileObj, flag){
         update_process(data);
         end = new Date();
         result='当前时间:'+end.getTime()+'开始时间'+start.getTime()+'时间相差'+(end-start);
-        alert(result);
+        // alert(result);
     }; //请求完成
     xhr.onerror = function(evt){
         console.log("上传失败！");
@@ -53,7 +53,7 @@ function handler_searchx(data){
         if(!blocks[each]['status']){
             console.log(each);
             var datas = get_datas(each, blocks[each]['start'], blocks[each]['end']);
-            url = "http://localhost:5000/new_upload/";
+            url = _url + "/new_upload/";
             var xhr = new XMLHttpRequest();  // XMLHttpRequest 对象
             xhr.open('post', url, true); //post方式，url为服务器请求地址，true 该参数规定请求是否异步处理。
             xhr.onload = function(evt){
@@ -97,6 +97,10 @@ function update_process(data){
     progressBar.max = total;
     progressBar.value = count;
     percentageDiv.innerHTML = '上传进度:' + count/total;
+    end = new Date();
+    result='当前时间:'+end.getTime()+'开始时间'+start.getTime()+'时间相差'+(end-start);
+    console.log(result);
+    // alert(result);
 }
 
 function handler_search(data){
