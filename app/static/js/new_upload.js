@@ -1,19 +1,15 @@
 var _url = 'http://localhost:5000'
-//上传文件方法
-function log_time() {
-    var a = new Date();
-    console.log(a);
-    console.log(a.getSeconds());
-}
+var start, end;
 
+//上传文件方法
 function UpladFile() {
-    log_time()
+    start = new Date();
     var fileObj = document.getElementById("file").files[0]; // js 获取文件对象
     search(fileObj, false);
 }
 
 function UpladFileAsycio() {
-    log_time()
+    start = new Date();
     var fileObj = document.getElementById("file").files[0]; // js 获取文件对象
     search(fileObj, true);
 }
@@ -37,9 +33,11 @@ function search(fileObj, flag){
                 console.log('handler_search');
                 handler_search(data);
             }
-
         }
         update_process(data);
+        end = new Date();
+        result='当前时间:'+end.getTime()+'开始时间'+start.getTime()+'时间相差'+(end-start);
+        alert(result);
     }; //请求完成
     xhr.onerror = function(evt){
         console.log("上传失败！");
@@ -99,7 +97,6 @@ function update_process(data){
     progressBar.max = total;
     progressBar.value = count;
     percentageDiv.innerHTML = '上传进度:' + count/total;
-    log_time();
 }
 
 function handler_search(data){
