@@ -1,5 +1,6 @@
 from flask_login import LoginManager
 from flasgger import Swagger
+from flask_cors import CORS
 from flask import Flask
 
 loginmanager = LoginManager()
@@ -15,6 +16,7 @@ def create_app():
     register_login(app)
     register_doc(app)
     Swagger(app)
+    CORS(app, supports_credentials=True)
     # Sentry_init(app)
     return app
 

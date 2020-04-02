@@ -10,8 +10,8 @@ from .base import web
 
 import threading
 lock = threading.RLock()
-import multiprocessing
-lock = multiprocessing.RLock()
+# import multiprocessing
+# lock = multiprocessing.RLock()
 
 @web.route('/upload/', methods=['GET','POST'])
 def upload():
@@ -104,16 +104,13 @@ def new_upload():
     res = request
     root_path = UPLOAD2_PATH
     if request.method == 'GET':
-        # import pdb;pdb.set_trace()
-        file_full_name = request.args['file_name']
+        file_full_name = request.args['file_name'] # '获取参数时转义出错!'
         file_size = int(request.args['file_size'])
         last_time = request.args['last_time']
         split_count = request.args.get('split_count', split_count)
         *filename, file_type = file_full_name.split('.')
         file_name = '.'.join(filename)
 
-        # /filename/filename_filetype.json
-        # 查看当前文件所在目录是否有json文件
         file_dir = f'{root_path}{file_name}/'
         split_file_name = f'{file_name}_{file_type}'
         file_json = f'{file_dir}{split_file_name}.json'
