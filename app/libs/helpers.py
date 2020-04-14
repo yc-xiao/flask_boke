@@ -7,6 +7,9 @@ import pymongo
 import time
 import pdb
 
+client = pymongo.MongoClient()
+db = client.logs
+
 def ttry(step=1):
     def wrapper(func):
         @wraps(func)
@@ -26,8 +29,6 @@ def ttry(step=1):
     return wrapper
 
 def add_log(data):
-    client = pymongo.MongoClient()
-    db = client.logs
     db.log.insert(data)
 
 def log_info(step=1):
